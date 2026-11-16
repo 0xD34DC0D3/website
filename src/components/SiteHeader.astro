@@ -1,0 +1,29 @@
+---
+import Logo from "./Logo.astro";
+
+const { pathname } = Astro.url;
+const nav = [
+  { href: "/#apps", label: "Apps" },
+  { href: "/docs/design-guide", label: "Design guide" },
+];
+const isCurrent = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+---
+
+<header class="sticky top-0 z-20 border-b-brut border-ink bg-canvas">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+    <a href="/"><Logo /></a>
+    <nav aria-label="Primary" class="flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider sm:gap-2">
+      {
+        nav.map(({ href, label }) => (
+          <a
+            href={href}
+            aria-current={isCurrent(href) ? "page" : undefined}
+            class="border-brut-sm border-transparent px-2 py-1 hover:border-ink hover:bg-accent aria-[current=page]:border-ink aria-[current=page]:bg-accent sm:px-3"
+          >
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

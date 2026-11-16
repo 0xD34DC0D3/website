@@ -1,0 +1,22 @@
+---
+const bytes = [
+  { hex: "D3", word: "de" },
+  { hex: "4D", word: "ad" },
+  { hex: "C0", word: "co" },
+  { hex: "D3", word: "de" },
+];
+---
+
+<span class="inline-flex items-start gap-x-2 sm:gap-x-4 font-mono leading-none font-bold tracking-tight" aria-hidden="true">
+  <span class="text-muted">0x</span>
+  {
+    bytes.map(({ hex, word }, i) => (
+      <span class="flex flex-col items-center">
+        <span>{hex}</span>
+        <span class="border-rule mt-3 w-full border-t pt-2 text-center text-xs font-normal sm:mt-4 sm:text-sm md:text-base">
+          <span class:list={[i > 1 && "text-muted"]}>{word}</span>
+        </span>
+      </span>
+    ))
+  }
+</span>

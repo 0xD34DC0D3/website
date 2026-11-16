@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+@theme static {
+  --color-canvas: #f2f1ec;
+  --color-surface: #fcfcfa;
+  --color-ink: #0b0b0b;
+  --color-muted: #55554f;
+  --color-rule: #c9c7bd;
+  --color-accent: #d2ff3a;
+  --color-danger: #ff4f2e;
+  --color-info: #3d5afe;
+  --color-tint-1: #ffb8d9;
+  --color-tint-2: #9fe3ff;
+
+  --font-sans: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --border-width-brut-sm: 2px;
+  --border-width-brut: 3px;
+
+  --shadow-brut-sm: 2px 2px 0 0 var(--color-ink);
+  --shadow-brut: 4px 4px 0 0 var(--color-ink);
+  --shadow-brut-lift: 6px 6px 0 0 var(--color-ink);
+  --shadow-brut-lg: 8px 8px 0 0 var(--color-ink);
+
+  --radius-brut: 2px;
+
+  --animate-blink: blink 1.1s step-end infinite;
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+@layer base {
+  html {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: var(--border-width-brut) solid var(--color-info);
+    outline-offset: 3px;
+  }
+}
+
+/* @utility, not @layer components: v4 can only @apply utilities, and these are composed below. */
+@utility brut {
+  @apply border-brut border-ink rounded-brut bg-surface shadow-brut;
+}
+
+@utility brut-press {
+  @apply transition-[translate,box-shadow] duration-75 ease-out;
+  &:hover {
+    @apply shadow-brut-lift;
+    translate: -2px -2px;
+  }
+  &:active {
+    @apply shadow-none;
+    translate: 4px 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &:hover,
+    &:active {
+      translate: none;
+    }
+  }
+}
+
+@layer components {
+  .btn {
+    @apply brut brut-press inline-flex cursor-pointer items-center justify-center gap-2 px-5 py-3
+      font-mono text-sm font-bold tracking-wider uppercase select-none;
+  }
+  .btn-primary {
+    @apply bg-accent;
+  }
+  .btn-danger {
+    @apply bg-danger text-surface;
+  }
+  .btn-ink {
+    @apply bg-ink text-surface shadow-accent;
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+  .btn:is(:disabled, [aria-disabled="true"]) {
+    @apply cursor-not-allowed opacity-50 shadow-brut-sm;
+    translate: none;
+  }
+
+  .badge {
+    @apply border-brut-sm border-ink bg-surface inline-flex items-center gap-1 px-2 py-0.5
+      font-mono text-xs font-bold tracking-wider uppercase;
+  }
+
+  .field {
+    @apply brut shadow-brut-sm w-full px-4 py-3 font-mono text-sm;
+    &:focus {
+      @apply shadow-brut;
+    }
+  }
+
+  .label {
+    @apply mb-2 block font-mono text-xs font-bold tracking-wider uppercase;
+  }
+
+  .eyebrow {
+    @apply text-muted font-mono text-xs font-bold tracking-[0.2em] uppercase;
+  }
+
+  .link {
+    @apply decoration-info font-bold underline underline-offset-4 hover:bg-accent;
+    text-decoration-thickness: var(--border-width-brut);
+  }
+
+  .mark {
+    @apply bg-accent px-[0.15em] box-decoration-clone;
+  }
+
+  .meta {
+    @apply text-muted font-mono text-xs tabular-nums;
+  }
+
+  .cursor {
+    @apply bg-accent outline-ink motion-safe:animate-blink inline-block h-[1em] w-[0.5em] align-[-0.15em] outline-2;
+  }
+}
+
+@utility bg-grid {
+  background-image: radial-gradient(var(--color-ink) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -11px -11px;
+}

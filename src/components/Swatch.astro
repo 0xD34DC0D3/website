@@ -1,0 +1,24 @@
+---
+interface Props {
+  name: string;
+  role: string;
+}
+const { name, role } = Astro.props;
+const token = `--color-${name}`;
+---
+
+<div class="brut flex flex-col">
+  <div class="border-b-brut border-ink h-24" style={`background: var(${token})`}></div>
+  <div class="p-3">
+    <p class="font-mono text-sm font-bold">{name}</p>
+    <p class="text-muted font-mono text-xs" data-swatch-value={token}></p>
+    <p class="text-muted mt-1 text-xs">{role}</p>
+  </div>
+</div>
+
+<script>
+  const root = getComputedStyle(document.documentElement);
+  for (const el of document.querySelectorAll<HTMLElement>("[data-swatch-value]")) {
+    el.textContent = root.getPropertyValue(el.dataset.swatchValue!).trim();
+  }
+</script>

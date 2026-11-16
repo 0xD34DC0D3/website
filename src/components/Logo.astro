@@ -1,0 +1,17 @@
+---
+interface Props {
+  size?: "sm" | "lg";
+}
+const { size = "sm" } = Astro.props;
+---
+
+<span class:list={["inline-flex items-center gap-2", size === "lg" ? "text-3xl" : "text-lg"]}>
+  <span
+    class:list={[
+      "grid place-items-center border-brut border-ink bg-accent font-mono font-bold shadow-brut-sm",
+      size === "lg" ? "h-12 w-12 text-xl" : "h-8 w-8 text-sm",
+    ]}
+    aria-hidden="true">0x</span
+  >
+  <span class="font-display font-bold tracking-tight">dead<span class="text-muted">code</span></span>
+</span>

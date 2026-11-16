@@ -1,0 +1,12 @@
+---
+import { build } from "../data/build";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t-brut border-ink bg-ink text-canvas">
+  <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 font-mono text-xs uppercase tracking-wider tabular-nums sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <span>© {year} deadcode</span>
+    <span class="normal-case"><span class="text-accent">0xD34DC0D3</span> · {build.version}</span>
+  </div>
+</footer>

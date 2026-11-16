@@ -1,0 +1,261 @@
+---
+import Base from "../../layouts/Base.astro";
+import Swatch from "../../components/Swatch.astro";
+import GuideSection from "../../components/GuideSection.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import AppCard from "../../components/AppCard.astro";
+import Logo from "../../components/Logo.astro";
+import HexMark from "../../components/HexMark.astro";
+import type { App } from "../../data/apps";
+
+const toc = [
+  { id: "principles", label: "Principles" },
+  { id: "color", label: "Color" },
+  { id: "type", label: "Typography" },
+  { id: "surfaces", label: "Borders & shadows" },
+  { id: "buttons", label: "Buttons" },
+  { id: "badges", label: "Badges" },
+  { id: "forms", label: "Forms" },
+  { id: "cards", label: "Cards" },
+  { id: "content", label: "Content" },
+  { id: "usage", label: "Usage" },
+];
+
+const colors = [
+  { name: "canvas", role: "Page background" },
+  { name: "surface", role: "Raised surfaces, text on dark" },
+  { name: "ink", role: "Text, borders, shadows" },
+  { name: "muted", role: "Secondary text" },
+  { name: "rule", role: "Hairlines and rulers, never text" },
+  { name: "accent", role: "Primary action, highlights" },
+  { name: "danger", role: "Destructive actions, warnings" },
+  { name: "info", role: "Links, focus, notes" },
+  { name: "tint-1", role: "Decorative tint" },
+  { name: "tint-2", role: "Decorative tint" },
+];
+
+const principles = [
+  { n: "01", t: "Honest structure", d: "Borders are visible. Boxes look like boxes. Nothing pretends to float." },
+  { n: "02", t: "Hard edges", d: "Shadows are solid offsets, never blurred. Radius stays at 2px." },
+  { n: "03", t: "One loud color", d: "The accent marks the primary action. Everything else is ink on canvas." },
+  { n: "04", t: "Mono for machines", d: "Labels, metadata, and controls are set in mono. Prose is set in the sans." },
+];
+
+const shadows = [
+  { cls: "shadow-brut-sm", label: "brut-sm · 2px", use: "Fields, badges, small chips" },
+  { cls: "shadow-brut", label: "brut · 4px", use: "Default for cards and buttons" },
+  { cls: "shadow-brut-lift", label: "brut-lift · 6px", use: "Hover state, applied by .brut-press" },
+  { cls: "shadow-brut-lg", label: "brut-lg · 8px", use: "Hero objects, one per view" },
+];
+
+const sampleApp: App = { name: "Demo App", tagline: "A launchable app card with a link.", href: "#cards", status: "live" };
+const sampleSoon: App = { name: "Next App", tagline: "A placeholder card with no link yet.", status: "soon" };
+---
+
+<Base title="Design guide" description="The deadcode neo-brutalist design system: tokens, type, and components.">
+  <div class="border-b-brut border-ink bg-accent">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <p class="eyebrow mb-3 text-ink">docs / design-guide</p>
+      <h1 class="font-display text-5xl font-bold leading-none tracking-tight sm:text-6xl">Design guide</h1>
+      <p class="mt-4 max-w-2xl text-lg">
+        Tokens and components for every deadcode surface. Built on Tailwind v4; all tokens live in
+        <code class="border-brut-sm border-ink bg-surface px-1.5 py-0.5 text-sm">src/styles/global.css</code>.
+      </p>
+    </div>
+  </div>
+
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[200px_1fr]">
+    <aside class="hidden lg:block">
+      <nav class="sticky top-24 py-12">
+        <p class="eyebrow mb-3">Contents</p>
+        <ol class="space-y-1 font-mono text-sm">
+          {toc.map((t, i) => (
+            <li>
+              <a href={`#${t.id}`} class="block border-brut-sm border-transparent px-2 py-1 hover:border-ink hover:bg-surface">
+                <span class="text-muted">{String(i + 1).padStart(2, "0")}</span> {t.label}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </aside>
+
+    <div class="min-w-0">
+      <GuideSection id="principles" index="01" title="Principles" lede="Neo-brutalism with restraint: raw structure, deliberate color, nothing decorative that doesn't carry meaning.">
+        <div class="grid gap-6 sm:grid-cols-2">
+          {principles.map((p) => (
+            <div class="brut p-5">
+              <span class="badge mb-3 bg-accent">{p.n}</span>
+              <h3 class="font-display text-xl font-bold">{p.t}</h3>
+              <p class="mt-1 text-sm text-muted">{p.d}</p>
+            </div>
+          ))}
+        </div>
+      </GuideSection>
+
+      <GuideSection id="color" index="02" title="Color" lede="Colors are named by role, so a re-theme only edits the hex values in global.css. Each is a Tailwind color: bg-accent, text-muted, border-ink. Tints are decorative and carry no meaning.">
+        <div class="grid grid-cols-2 gap-5 sm:grid-cols-3">
+          {colors.map((c) => <Swatch {...c} />)}
+        </div>
+      </GuideSection>
+
+      <GuideSection id="type" index="03" title="Typography" lede="Atkinson Hyperlegible Next for display and prose. JetBrains Mono for labels, data, controls, and the hex mark. Use weights 400 and 700 only.">
+        <div class="brut divide-y-brut divide-ink">
+          <div class="p-5">
+            <p class="eyebrow mb-2">Display · Hyperlegible Next · text-7xl / bold / tight</p>
+            <p class="font-display text-5xl font-bold leading-none tracking-tight sm:text-7xl">Dead code.</p>
+          </div>
+          <div class="p-5">
+            <p class="eyebrow mb-2">H2 · text-4xl / bold</p>
+            <p class="font-display text-4xl font-bold tracking-tight">Section heading</p>
+          </div>
+          <div class="p-5">
+            <p class="eyebrow mb-2">H3 · text-xl / bold</p>
+            <p class="font-display text-xl font-bold">Card heading</p>
+          </div>
+          <div class="p-5">
+            <p class="eyebrow mb-2">Body · text-base / text-muted for secondary</p>
+            <p class="max-w-prose">Body copy is set in the sans at a comfortable measure. Use <span class="mark">.mark</span> to highlight a phrase and <a href="#type" class="link">.link</a> for inline links.</p>
+          </div>
+          <div class="p-5">
+            <p class="eyebrow mb-2">Mono · JetBrains Mono · .eyebrow / labels / metadata</p>
+            <p class="font-mono text-sm">0xD34DC0D3 · v0.1.0 · <span class="eyebrow">// eyebrow label</span></p>
+          </div>
+          <div class="p-5">
+            <p class="eyebrow mb-2">.meta · build strings, counts, indexes · tabular figures</p>
+            <p class="meta">v0.1.0 · build 2026-01-01 · 03 registered · 0x0A</p>
+          </div>
+          <div class="p-5">
+            <p class="eyebrow mb-2">.cursor · animate-blink · one per view, static under reduced motion</p>
+            <p class="text-lg text-muted">Awaiting input<span class="cursor ml-1" aria-hidden="true"></span></p>
+          </div>
+        </div>
+      </GuideSection>
+
+      <GuideSection id="surfaces" index="04" title="Borders & shadows" lede="Borders use border-brut (border-brut-sm on small elements) in ink. Shadows are solid offsets toward bottom-right.">
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {shadows.map((s) => (
+            <div>
+              <div class:list={["brut h-28 grid place-items-center font-mono text-sm font-bold", s.cls]}>{s.label}</div>
+              <p class="mt-4 text-sm text-muted">{s.use}</p>
+            </div>
+          ))}
+        </div>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2">
+          <div class="brut brut-press cursor-pointer p-5">
+            <p class="font-mono text-sm font-bold">.brut-press</p>
+            <p class="mt-1 text-sm text-muted">Hover to lift, click to press flat. Use on anything clickable.</p>
+          </div>
+          <div class="brut bg-grid p-5">
+            <p class="w-fit bg-surface font-mono text-sm font-bold">.bg-grid</p>
+            <p class="mt-1 w-fit bg-surface text-sm text-muted">Dot texture for hero bands only.</p>
+          </div>
+        </div>
+      </GuideSection>
+
+      <GuideSection id="buttons" index="05" title="Buttons" lede="One primary per view. A bare .btn is the secondary style. Mono, uppercase, tracked.">
+        <div class="brut flex flex-wrap items-center gap-5 p-6">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn">Secondary</button>
+          <button class="btn btn-ink">Ink</button>
+          <button class="btn btn-danger">Danger</button>
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn" disabled>Disabled</button>
+        </div>
+        <div class="mt-6">
+          <CodeBlock label="html" code={`<button class="btn btn-primary">Primary</button>\n<a href="/x" class="btn btn-sm">Small link</a>`} />
+        </div>
+      </GuideSection>
+
+      <GuideSection id="badges" index="06" title="Badges" lede="Status and metadata. Combine .badge with any background token.">
+        <div class="flex flex-wrap gap-3">
+          <span class="badge">Default</span>
+          <span class="badge bg-accent">New</span>
+          <span class="badge bg-ink text-accent">Live</span>
+          <span class="badge bg-tint-2">Beta</span>
+          <span class="badge bg-tint-1">Soon</span>
+          <span class="badge bg-danger text-surface">Deprecated</span>
+        </div>
+      </GuideSection>
+
+      <GuideSection id="forms" index="07" title="Forms" lede="Fields use the small shadow at rest and the default shadow plus the focus ring on focus.">
+        <form class="brut grid gap-5 p-6 sm:grid-cols-2" onsubmit="return false">
+          <div>
+            <label class="label" for="dg-name">Name</label>
+            <input id="dg-name" class="field" placeholder="ada lovelace" />
+          </div>
+          <div>
+            <label class="label" for="dg-app">App</label>
+            <select id="dg-app" class="field">
+              <option>App One</option>
+              <option>App Two</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="label" for="dg-msg">Message</label>
+            <textarea id="dg-msg" class="field min-h-28" placeholder="ship it."></textarea>
+          </div>
+          <label class="flex items-center gap-3 font-mono text-sm">
+            <input type="checkbox" class="h-5 w-5 accent-ink" checked /> Remember me
+          </label>
+          <div class="sm:text-right">
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+        </form>
+      </GuideSection>
+
+      <GuideSection id="cards" index="08" title="Cards" lede="AppCard is the launchpad tile. Cards with an href get .brut-press and a launch arrow; the rest stay static.">
+        <div class="grid gap-6 sm:grid-cols-2">
+          <AppCard app={sampleApp} />
+          <AppCard app={sampleSoon} />
+        </div>
+        <div class="mt-6">
+          <CodeBlock label="src/data/apps.ts" code={`{ name: "My App", tagline: "What it does.", href: "https://my-app.example", status: "live" }`} />
+        </div>
+      </GuideSection>
+
+      <GuideSection id="content" index="09" title="Content" lede="Code, callouts, and brand marks. HexMark is the hero-scale brand moment: 0xD34DC0D3 decoded byte by byte into deadcode. Use it once, inside an h1 with an sr-only name; it inherits font size from its parent.">
+        <div class="grid gap-6">
+          <CodeBlock label="shell" code={`$ npm run dev\n$ npm run build`} />
+          <div class="brut border-l-12 bg-tint-2 p-5">
+            <p class="font-mono text-xs font-bold uppercase tracking-wider">Note</p>
+            <p class="mt-1">Callouts use a thick left border and a tint. Use danger for warnings.</p>
+          </div>
+          <div class="brut border-l-12 bg-danger p-5 text-surface">
+            <p class="font-mono text-xs font-bold uppercase tracking-wider">Warning</p>
+            <p class="mt-1">Don't stack more than two colors besides ink in one component.</p>
+          </div>
+          <div class="brut flex flex-wrap items-center gap-8 p-6">
+            <Logo size="lg" />
+            <Logo />
+          </div>
+          <div class="brut bg-grid p-6 text-4xl sm:text-6xl">
+            <HexMark />
+          </div>
+        </div>
+      </GuideSection>
+
+      <GuideSection id="usage" index="10" title="Usage" lede="Rules of thumb for new pages and apps.">
+        <div class="grid gap-6 sm:grid-cols-2">
+          <div class="brut p-5">
+            <span class="badge mb-3 bg-accent">Do</span>
+            <ul class="list-inside list-disc space-y-1 text-sm">
+              <li>Use the Base layout for every page.</li>
+              <li>Reach for .brut before writing custom borders.</li>
+              <li>Keep one accent CTA per view.</li>
+              <li>Use mono for anything a machine would print.</li>
+            </ul>
+          </div>
+          <div class="brut p-5">
+            <span class="badge mb-3 bg-danger text-surface">Don't</span>
+            <ul class="list-inside list-disc space-y-1 text-sm">
+              <li>Blur shadows or add gradients.</li>
+              <li>Round corners past 2px.</li>
+              <li>Use hex values or arbitrary sizes inline; add a token instead.</li>
+            </ul>
+          </div>
+        </div>
+      </GuideSection>
+    </div>
+  </div>
+</Base>

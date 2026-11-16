@@ -1,16 +1,42 @@
 ---
+import Base from "../layouts/Base.astro";
+import AppCard from "../components/AppCard.astro";
+import HexMark from "../components/HexMark.astro";
+import { apps } from "../data/apps";
+import { build } from "../data/build";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base>
+  <section class="bg-grid border-b-brut border-ink">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-28">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <span class="badge gap-2">
+          <span class="h-2 w-2 bg-accent outline outline-ink motion-safe:animate-pulse" aria-hidden="true"></span>
+          In development
+        </span>
+        <p class="meta bg-canvas">{build.version} · build {build.date}</p>
+      </div>
+
+      <h1 class="mt-12 text-4xl sm:mt-16 sm:text-6xl md:text-8xl lg:text-9xl">
+        <span class="sr-only">deadcode</span>
+        <HexMark />
+      </h1>
+
+      <p class="mt-10 max-w-xl text-lg text-muted">
+        <span class="bg-canvas box-decoration-clone">One launchpad for every tool the deadcode org ships.</span><span
+          class="cursor ml-1"
+          aria-hidden="true"></span>
+      </p>
+    </div>
+  </section>
+
+  <section id="apps" aria-labelledby="apps-heading" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
+    <div class="mb-4 flex items-baseline justify-between gap-4 border-b border-rule pb-2">
+      <h2 id="apps-heading" class="eyebrow">Apps</h2>
+      <p class="meta">{String(apps.length).padStart(2, "0")} registered</p>
+    </div>
+    <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {apps.map((app, i) => <li><AppCard app={app} index={i + 1} /></li>)}
+    </ul>
+  </section>
+</Base>
