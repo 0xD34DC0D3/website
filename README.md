@@ -1,6 +1,6 @@
 # deadcode
 
-Landing page and launchpad for the 0xD34DC0D3 app ecosystem. Built with Astro and Tailwind v4.
+Landing page the 0xD34DC0D3 ecosystem. Built with Astro and Tailwind v4.
 
 ## Develop
 

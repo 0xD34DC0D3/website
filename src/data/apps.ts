@@ -7,7 +7,7 @@ export interface App {
 }
 
 export const apps: App[] = [
-  { name: "App One", tagline: "Placeholder for the first app.", status: "soon" },
-  { name: "App Two", tagline: "Placeholder for the second app.", status: "soon" },
-  { name: "App Three", tagline: "Placeholder for the third app.", status: "soon" },
+  { name: "Auth", tagline: "Your account across the system.", status: "soon" },
+  { name: "Nutrition", tagline: "Your nutrition data, simplified.", status: "soon" },
+  { name: "Lore", tagline: "Easy collection and indexing of your data.", status: "soon" },
 ];
