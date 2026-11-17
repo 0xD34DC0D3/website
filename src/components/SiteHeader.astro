@@ -25,7 +25,26 @@ const isCurrent = (href: string) => pathname === href || pathname.startsWith(`${
           </a>
         ))
       }
-      <a href={`${PUBLIC_AUTH_URL}/login`} class="btn btn-primary btn-sm whitespace-nowrap">Sign in</a>
+      <a id="auth-link" href={`${PUBLIC_AUTH_URL}/login`} class="btn btn-primary btn-sm whitespace-nowrap">Sign in</a>
     </nav>
   </div>
 </header>
+
+<script>
+  import { PUBLIC_AUTH_URL } from "astro:env/client";
+
+  const link = document.getElementById("auth-link") as HTMLAnchorElement | null;
+  if (link) {
+    // Return here after signing in.
+    link.href = `${PUBLIC_AUTH_URL}/login?next=${encodeURIComponent(location.href)}`;
+    fetch("/api/me", { credentials: "same-origin" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((me: { email: string } | null) => {
+        if (!me) return;
+        link.href = `${PUBLIC_AUTH_URL}/`;
+        link.textContent = "Account";
+        link.title = `Signed in as ${me.email}`;
+      })
+      .catch(() => {});
+  }
+</script>
