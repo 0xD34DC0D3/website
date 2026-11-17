@@ -8,6 +8,8 @@ import Logo from "../../components/Logo.astro";
 import HexMark from "../../components/HexMark.astro";
 import type { App } from "../../data/apps";
 
+const code = "border-brut-sm border-ink bg-surface px-1.5 py-0.5 text-sm";
+
 const toc = [
   { id: "principles", label: "Principles" },
   { id: "color", label: "Color" },
@@ -18,6 +20,7 @@ const toc = [
   { id: "forms", label: "Forms" },
   { id: "cards", label: "Cards" },
   { id: "content", label: "Content" },
+  { id: "app-shell", label: "App shell" },
   { id: "usage", label: "Usage" },
 ];
 
@@ -235,7 +238,47 @@ const sampleSoon: App = { name: "Next App", tagline: "A placeholder card with no
         </div>
       </GuideSection>
 
-      <GuideSection id="usage" index="10" title="Usage" lede="Rules of thumb for new pages and apps.">
+      <GuideSection id="app-shell" index="10" title="App shell" lede="Every app on a subdomain wears the same chrome, so moving between apps feels like one system. The app owns its nav and content; the shell owns the way home.">
+        <div class="space-y-6">
+          <div class="brut overflow-hidden p-0" aria-hidden="true" inert>
+            <div class="flex flex-wrap items-center gap-4 border-b-brut border-ink bg-canvas px-4 py-3">
+              <span class="inline-flex items-center gap-2 text-lg">
+                <span class="grid h-8 w-8 place-items-center border-brut border-ink bg-accent font-mono text-sm font-bold shadow-brut-sm">0x</span>
+                <span class="font-mono text-muted">/</span>
+                <span class="font-display font-bold tracking-tight">app<span class="text-muted">name</span></span>
+              </span>
+              <span class="flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider sm:gap-2">
+                <span class="border-brut-sm border-ink bg-accent px-2 py-1 sm:px-3">Home</span>
+                <span class="border-brut-sm border-transparent px-2 py-1 sm:px-3">Settings</span>
+              </span>
+              <span class="ml-auto font-mono text-xs text-muted">you@example.com</span>
+            </div>
+            <div class="flex flex-col gap-2 bg-ink px-4 py-6 font-mono text-xs uppercase tracking-wider tabular-nums text-canvas sm:flex-row sm:items-center sm:justify-between">
+              <span>deadcode · all apps</span>
+              <span class="normal-case"><span class="text-accent">0xD34DC0D3</span> · appname</span>
+            </div>
+          </div>
+          <ul class="list-inside list-disc space-y-2 text-sm">
+            <li><strong>Lockup</strong>: the 0x tile links to this site, then a muted mono <code class={code}>/</code>, then the app name linking to the app root. Never replace the tile with an app icon.</li>
+            <li><strong>Header</strong>: lockup, app nav (mono, uppercase, accent on the current page), then account controls pushed right. Sticky, canvas background, brut bottom border.</li>
+            <li><strong>Footer</strong>: ink bar. Left: <code class={code}>deadcode · all apps</code> linking to <code class={code}>/</code> and <code class={code}>/#apps</code>. Right: the accent hex, then the app name.</li>
+            <li><strong>Config</strong>: read hosts from env, never hardcode them: <code class={code}>&lt;APP&gt;_SITE_URL</code> for this site, <code class={code}>&lt;APP&gt;_AUTH_URL</code> for voodoo.</li>
+            <li><strong>Tokens</strong>: generate them from global.css, never hand-edit them. voodoo's <code class={code}>scripts/sync-theme.sh</code> is the reference.</li>
+          </ul>
+          <CodeBlock
+            label="html (structure)"
+            code={`<div class="brand">
+  <a href="$SITE_URL/" aria-label="deadcode home">
+    <span class="tile" aria-hidden="true">0x</span>
+  </a>
+  <span class="sep" aria-hidden="true">/</span>
+  <a href="/">appname</a>
+</div>`}
+          />
+        </div>
+      </GuideSection>
+
+      <GuideSection id="usage" index="11" title="Usage" lede="Rules of thumb for new pages and apps.">
         <div class="grid gap-6 sm:grid-cols-2">
           <div class="brut p-5">
             <span class="badge mb-3 bg-accent">Do</span>

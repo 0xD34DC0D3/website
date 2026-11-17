@@ -1,3 +1,5 @@
+import { PUBLIC_AUTH_URL } from "astro:env/client";
+
 export interface App {
   name: string;
   tagline: string;
@@ -7,7 +9,7 @@ export interface App {
 }
 
 export const apps: App[] = [
-  { name: "Auth", tagline: "Your account across the system.", status: "soon" },
+  { name: "voodoo", tagline: "Your account across the system.", href: PUBLIC_AUTH_URL, status: "beta" },
   { name: "Nutrition", tagline: "Your nutrition data, simplified.", status: "soon" },
   { name: "Lore", tagline: "Easy collection and indexing of your data.", status: "soon" },
 ];
