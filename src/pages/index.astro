@@ -9,19 +9,19 @@ import { build } from "../data/build";
 const steps = [
   {
     title: "Sign in once",
-    body: "voodoo holds your account. Sign in there and every app on the domain knows who you are.",
+    body: "One account works in every app. Sign in once with voodoo.",
     href: PUBLIC_AUTH_URL,
     cta: "Open voodoo",
   },
   {
     title: "Open an app",
-    body: "Each app is one small binary with one job. scry is an RSS reader; more are coming.",
+    body: "Each app does one thing. scry is an RSS reader. More are on the way.",
     href: PUBLIC_SCRY_URL,
     cta: "Open scry",
   },
   {
     title: "Build your own",
-    body: "New Go apps start as a copy of scry and use this site's design system.",
+    body: "New apps start as a copy of scry and follow the design guide.",
     href: "/docs/design-guide",
     cta: "Read the design guide",
   },
@@ -45,7 +45,7 @@ const steps = [
       </h1>
 
       <p class="mt-10 max-w-xl text-lg text-muted">
-        <span class="bg-canvas box-decoration-clone">Modern software made dead simple.</span><span
+        <span class="bg-canvas box-decoration-clone">Small, simple apps for family and friends.</span><span
           class="cursor ml-1"
           aria-hidden="true"></span>
       </p>
@@ -60,7 +60,7 @@ const steps = [
   <section id="apps" aria-labelledby="apps-heading" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
     <div class="mb-4 flex items-baseline justify-between gap-4 border-b border-rule pb-2">
       <h2 id="apps-heading" class="eyebrow">Apps</h2>
-      <p class="meta">{String(apps.filter((a) => a.href).length).padStart(2, "0")} open · {String(apps.length).padStart(2, "0")} registered</p>
+      <p class="meta">{String(apps.filter((a) => a.href).length).padStart(2, "0")} open · {String(apps.length).padStart(2, "0")} total</p>
     </div>
     <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {sortedApps.map((app, i) => <li><AppCard app={app} index={i + 1} /></li>)}

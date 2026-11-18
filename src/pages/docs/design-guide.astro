@@ -51,7 +51,7 @@ const shadows = [
   { cls: "shadow-brut-lg", label: "brut-lg · 8px", use: "Hero objects, one per view" },
 ];
 
-const sampleApp: App = { name: "Demo App", tagline: "A launchable app card with a link.", about: "Optional detail line. The Source link stays clickable inside the card link.", href: "#cards", source: "#cards", status: "live" };
+const sampleApp: App = { name: "Demo App", tagline: "An app card with a link.", about: "Optional detail line. The Source link stays clickable inside the card link.", href: "#cards", source: "#cards", status: "live" };
 const sampleSoon: App = { name: "Next App", tagline: "A placeholder card with no link yet.", status: "soon" };
 ---
 
@@ -84,7 +84,7 @@ const sampleSoon: App = { name: "Next App", tagline: "A placeholder card with no
     </aside>
 
     <div class="min-w-0">
-      <GuideSection id="principles" index="01" title="Principles" lede="Neo-brutalism with restraint: raw structure, deliberate color, nothing decorative that doesn't carry meaning.">
+      <GuideSection id="principles" index="01" title="Principles" lede="Plain structure, one accent color, and no decoration without a job.">
         <div class="grid gap-6 sm:grid-cols-2">
           {principles.map((p) => (
             <div class="brut p-5">
@@ -207,7 +207,7 @@ const sampleSoon: App = { name: "Next App", tagline: "A placeholder card with no
         </form>
       </GuideSection>
 
-      <GuideSection id="cards" index="08" title="Cards" lede="AppCard is the launchpad tile. Cards with an href get .brut-press and a launch arrow; the rest stay static. Launchable apps sort first.">
+      <GuideSection id="cards" index="08" title="Cards" lede="AppCard is the launchpad tile. Cards with an href get .brut-press and an arrow; the rest stay static. Launchable apps sort first.">
         <div class="grid gap-6 sm:grid-cols-2">
           <AppCard app={sampleApp} />
           <AppCard app={sampleSoon} />
@@ -217,7 +217,7 @@ const sampleSoon: App = { name: "Next App", tagline: "A placeholder card with no
         </div>
       </GuideSection>
 
-      <GuideSection id="content" index="09" title="Content" lede="Code, callouts, and brand marks. HexMark is the hero-scale brand moment: 0xD34DC0D3 decoded byte by byte into deadcode. Use it once, inside an h1 with an sr-only name; it inherits font size from its parent.">
+      <GuideSection id="content" index="09" title="Content" lede="Code, callouts, and brand marks. HexMark decodes 0xD34DC0D3 into deadcode, byte by byte. Use it once per page, inside an h1 with an sr-only name. It inherits its font size.">
         <div class="grid gap-6">
           <CodeBlock label="shell" code={`$ npm run dev\n$ npm run build`} />
           <div class="brut border-l-12 bg-tint-2 p-5">

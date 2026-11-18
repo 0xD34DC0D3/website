@@ -15,8 +15,8 @@ export interface App {
 export const apps: App[] = [
   {
     name: "voodoo",
-    tagline: "Your account across the system.",
-    about: "Invite-only accounts, API keys, and admin pages. One small Go binary.",
+    tagline: "One account for every app.",
+    about: "Invite-only sign-in, API keys, and user management.",
     href: PUBLIC_AUTH_URL,
     source: "https://github.com/0xD34DC0D3/voodoo",
     status: "beta",
@@ -28,8 +28,8 @@ export const apps: App[] = [
     href: PUBLIC_SCRY_URL,
     status: "beta",
   },
-  { name: "Lore", tagline: "Easy collection and indexing of your data.", status: "soon" },
-  { name: "Nutrition", tagline: "Your nutrition data, simplified.", status: "soon" },
+  { name: "Lore", tagline: "Store and search your data.", status: "soon" },
+  { name: "Nutrition", tagline: "Track what you eat.", status: "soon" },
 ];
 
 const rank = { live: 0, beta: 1, soon: 2 } as const;
