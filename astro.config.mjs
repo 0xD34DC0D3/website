@@ -8,6 +8,7 @@ export default defineConfig({
   env: {
     schema: {
       PUBLIC_AUTH_URL: envField.string({ context: 'client', access: 'public', url: true, default: 'https://auth.0xd34dc0d3.dev' }),
+      PUBLIC_SCRY_URL: envField.string({ context: 'client', access: 'public', url: true, default: 'https://scry.0xd34dc0d3.dev' }),
     },
   },
   vite: {

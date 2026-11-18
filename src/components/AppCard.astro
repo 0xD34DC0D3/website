@@ -7,26 +7,47 @@ interface Props {
 }
 
 const { app, index } = Astro.props;
-const Tag = app.href ? "a" : "div";
+const host = app.href && new URL(app.href, "https://x.invalid").host;
+// The title link stretches over the whole card, so the card is one click
+// target and the Source link (z-10) can still sit inside it.
 ---
 
-<Tag href={app.href} class:list={["brut group flex h-full flex-col gap-2 p-5", app.href && "brut-press"]}>
+<article class:list={["brut group relative flex h-full flex-col gap-2 p-5", app.href && "brut-press"]}>
   <div class="flex items-start justify-between gap-4">
-    <h3 class="font-display text-xl font-bold">{app.name}</h3>
+    <h3 class="font-display text-xl font-bold">
+      {
+        app.href ? (
+          <a href={app.href} class="stretch after:absolute after:inset-0 after:content-['']">
+            {app.name}
+          </a>
+        ) : (
+          app.name
+        )
+      }
+    </h3>
     <span class:list={["badge", { live: "bg-accent", beta: "bg-tint-2", soon: "" }[app.status]]}>{app.status}</span>
   </div>
-  <p class="text-sm text-muted">{app.tagline}</p>
+  <p class:list={["text-sm", app.about ? "font-bold" : "text-muted"]}>{app.tagline}</p>
+  {app.about && <p class="text-sm text-muted">{app.about}</p>}
+  {host && host !== "x.invalid" && <p class="meta truncate">{host}</p>}
   <div class="mt-auto flex items-center justify-between gap-4 pt-3">
     <span class="meta">{index !== undefined && `0x${index.toString(16).toUpperCase().padStart(2, "0")}`}</span>
-    {
-      app.href && (
-        <span class="font-mono text-xs font-bold uppercase tracking-wider">
-          Launch{" "}
-          <span class="inline-block transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true">
-            →
+    <span class="flex items-center gap-4 font-mono text-xs font-bold uppercase tracking-wider">
+      {
+        app.source && (
+          <a href={app.source} class="relative z-10 underline decoration-2 underline-offset-4 hover:bg-accent">
+            Source<span class="sr-only"> for {app.name}</span>
+          </a>
+        )
+      }
+      {
+        app.href && (
+          <span aria-hidden="true">
+            Launch{" "}
+            <span class="inline-block transition-transform motion-safe:group-hover:translate-x-1">→</span>
           </span>
-        </span>
-      )
-    }
+        )
+      }
+    </span>
   </div>
-</Tag>
+</article>

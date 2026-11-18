@@ -2,8 +2,30 @@
 import Base from "../layouts/Base.astro";
 import AppCard from "../components/AppCard.astro";
 import HexMark from "../components/HexMark.astro";
-import { apps } from "../data/apps";
+import { apps, sortedApps } from "../data/apps";
+import { PUBLIC_AUTH_URL, PUBLIC_SCRY_URL } from "astro:env/client";
 import { build } from "../data/build";
+
+const steps = [
+  {
+    title: "Sign in once",
+    body: "voodoo holds your account. Sign in there and every app on the domain knows who you are.",
+    href: PUBLIC_AUTH_URL,
+    cta: "Open voodoo",
+  },
+  {
+    title: "Open an app",
+    body: "Each app is one small binary with one job. scry is an RSS reader; more are coming.",
+    href: PUBLIC_SCRY_URL,
+    cta: "Open scry",
+  },
+  {
+    title: "Build your own",
+    body: "New Go apps start as a copy of scry and use this site's design system.",
+    href: "/docs/design-guide",
+    cta: "Read the design guide",
+  },
+];
 ---
 
 <Base>
@@ -27,16 +49,42 @@ import { build } from "../data/build";
           class="cursor ml-1"
           aria-hidden="true"></span>
       </p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="#apps" class="btn btn-primary">Browse apps</a>
+        <a href="/docs/design-guide" class="btn">Design guide</a>
+      </div>
     </div>
   </section>
 
   <section id="apps" aria-labelledby="apps-heading" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
     <div class="mb-4 flex items-baseline justify-between gap-4 border-b border-rule pb-2">
       <h2 id="apps-heading" class="eyebrow">Apps</h2>
-      <p class="meta">{String(apps.length).padStart(2, "0")} registered</p>
+      <p class="meta">{String(apps.filter((a) => a.href).length).padStart(2, "0")} open · {String(apps.length).padStart(2, "0")} registered</p>
     </div>
     <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {apps.map((app, i) => <li><AppCard app={app} index={i + 1} /></li>)}
+      {sortedApps.map((app, i) => <li><AppCard app={app} index={i + 1} /></li>)}
     </ul>
+  </section>
+
+  <section id="how" aria-labelledby="how-heading" class="border-t-brut border-ink bg-grid">
+    <div class="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
+      <div class="mb-4 flex items-baseline justify-between gap-4 border-b border-rule pb-2">
+        <h2 id="how-heading" class="eyebrow bg-canvas">How it fits together</h2>
+        <p class="meta bg-canvas">{String(steps.length).padStart(2, "0")} steps</p>
+      </div>
+      <ol class="grid gap-6 md:grid-cols-3">
+        {
+          steps.map((step, i) => (
+            <li class="brut flex flex-col gap-3 p-5">
+              <span class="meta">step {String(i + 1).padStart(2, "0")}</span>
+              <h3 class="font-display text-xl font-bold">{step.title}</h3>
+              <p class="text-sm text-muted">{step.body}</p>
+              <a href={step.href} class="link mt-auto self-start pt-2 text-sm">{step.cta}</a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
   </section>
 </Base>

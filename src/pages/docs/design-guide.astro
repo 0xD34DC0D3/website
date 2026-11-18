@@ -51,7 +51,7 @@ const shadows = [
   { cls: "shadow-brut-lg", label: "brut-lg · 8px", use: "Hero objects, one per view" },
 ];
 
-const sampleApp: App = { name: "Demo App", tagline: "A launchable app card with a link.", href: "#cards", status: "live" };
+const sampleApp: App = { name: "Demo App", tagline: "A launchable app card with a link.", about: "Optional detail line. The Source link stays clickable inside the card link.", href: "#cards", source: "#cards", status: "live" };
 const sampleSoon: App = { name: "Next App", tagline: "A placeholder card with no link yet.", status: "soon" };
 ---
 
@@ -207,7 +207,7 @@ const sampleSoon: App = { name: "Next App", tagline: "A placeholder card with no
         </form>
       </GuideSection>
 
-      <GuideSection id="cards" index="08" title="Cards" lede="AppCard is the launchpad tile. Cards with an href get .brut-press and a launch arrow; the rest stay static.">
+      <GuideSection id="cards" index="08" title="Cards" lede="AppCard is the launchpad tile. Cards with an href get .brut-press and a launch arrow; the rest stay static. Launchable apps sort first.">
         <div class="grid gap-6 sm:grid-cols-2">
           <AppCard app={sampleApp} />
           <AppCard app={sampleSoon} />
@@ -263,7 +263,8 @@ const sampleSoon: App = { name: "Next App", tagline: "A placeholder card with no
             <li><strong>Header</strong>: lockup, app nav (mono, uppercase, accent on the current page), then account controls pushed right. Sticky, canvas background, brut bottom border.</li>
             <li><strong>Footer</strong>: ink bar. Left: <code class={code}>deadcode · all apps</code> linking to <code class={code}>/</code> and <code class={code}>/#apps</code>. Right: the accent hex, then the app name.</li>
             <li><strong>Config</strong>: read hosts from env, never hardcode them: <code class={code}>&lt;APP&gt;_SITE_URL</code> for this site, <code class={code}>&lt;APP&gt;_AUTH_URL</code> for voodoo.</li>
-            <li><strong>Tokens</strong>: generate them from global.css, never hand-edit them. voodoo's <code class={code}>scripts/sync-theme.sh</code> is the reference.</li>
+            <li><strong>Tokens</strong>: generate them from global.css, never hand-edit them. scry's <code class={code}>make theme</code> (<code class={code}>scripts/sync-theme.sh</code>) is the reference.</li>
+            <li><strong>Template</strong>: new Go apps start as a copy of scry.</li>
           </ul>
           <CodeBlock
             label="html (structure)"

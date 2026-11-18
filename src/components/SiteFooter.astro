@@ -6,7 +6,12 @@ const year = new Date().getFullYear();
 
 <footer class="border-t-brut border-ink bg-ink text-canvas">
   <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 font-mono text-xs uppercase tracking-wider tabular-nums sm:flex-row sm:items-center sm:justify-between sm:px-6">
-    <span>© {year} deadcode</span>
+    <span class="flex flex-wrap gap-x-4 gap-y-1">
+      <span>© {year} deadcode</span>
+      <a href="/#apps" class="hover:text-accent">Apps</a>
+      <a href="/docs/design-guide" class="hover:text-accent">Design guide</a>
+      <a href="https://github.com/0xD34DC0D3" class="hover:text-accent">GitHub</a>
+    </span>
     <span class="normal-case"><span class="text-accent">0xD34DC0D3</span> · {build.version}</span>
   </div>
 </footer>
