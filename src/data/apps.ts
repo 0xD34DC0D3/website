@@ -26,6 +26,7 @@ export const apps: App[] = [
     tagline: "A plain RSS reader.",
     about: "Latest posts from a shared list of feeds. No account needed to read.",
     href: PUBLIC_SCRY_URL,
+    source: "https://github.com/0xD34DC0D3/scry",
     status: "beta",
   },
   { name: "Lore", tagline: "Store and search your data.", status: "soon" },
